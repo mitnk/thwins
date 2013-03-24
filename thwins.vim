@@ -59,16 +59,22 @@ endfunction
 
 function! THWINS_GetDisplayedBuffers()
     let cnr = bufnr('%')
+
+    " Make sure there are at least two windows
+    let window_counter = 0
+    windo let window_counter = window_counter + 1
+    if window_counter < 2
+        return [cnr]
+    endif
+
     let buffers = [cnr]
-    while 1
+    while window_counter > 0
         exec 'wincmd w'
         let nr = bufnr('%')
-        if nr == cnr
-            break
-        endif
         if index(buffers, nr) == -1
             let buffers += [nr]
         endif
+        let window_counter -= 1
     endwhile
     return reverse(sort(buffers))
 endfunction
@@ -148,7 +154,7 @@ function! THWINS_Layout()
 endfunction
 
 
-function THWINS_ResizeMasterPaneWidth()
+function! THWINS_ResizeMasterPaneWidth()
     " resize the master pane if user defined it
     if exists('g:thwins_master_pane_width')
         exec 'vertical resize ' . g:thwins_master_pane_width
@@ -201,3 +207,4 @@ if g:thwins_map_keys
     map <C-K> <C-W>W
     map <C-L> :call THWINS_Full()<CR>
 endif
+
