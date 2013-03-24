@@ -10,7 +10,7 @@
 " Name Of File: thwins.vim
 "  Description: Three Windows for Vim
 "   Maintainer: mitnk (whgking @ gmail)
-"      Base On: dwm.vim by Stanislas Polu
+"      Base On: dwm.vim by Stanislas Polu (https://github.com/spolu/dwm.vim)
 "=============================================================================
 
 " Exit quickly if already running
@@ -39,6 +39,9 @@ let s:thwins_bufs = []
 " Change Main Window
 " Make sure the position of the third window Unchange.
 function! THWINS_ChangeMainWindow(old_bufs)
+    if len(a:old_bufs) <= 2
+        return
+    endif
     let cnr = bufnr('%')
     if cnr != a:old_bufs[0]
         let s:thwins_bufs = [cnr]
