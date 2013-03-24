@@ -34,8 +34,8 @@ Key Mapping
 Optional Settings
 -----------------
 
-- `g:dwm_map_keys`: if set to a falsey value, prevents key mapping.
-- `g:dwm_master_pane_width`: set the width of the master pane (e.g. `g:dwm_master_pane_width=85`)
+- `g:thwins_map_keys`: if set to a falsey value, prevents key mapping.
+- `g:thwins_master_pane_width`: set the width of the master pane (e.g. `g:dwm_master_pane_width=85`)
 
 Inspired By
 -------------
