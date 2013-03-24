@@ -38,17 +38,16 @@ let s:thwins_bufs = []
 
 " Change Main Window
 " Make sure the position of the third window Unchange.
-function! THWINS_ChangeMainWindow()
+function! THWINS_ChangeMainWindow(old_bufs)
     let cnr = bufnr('%')
-    if cnr != s:thwins_bufs[0]
-        let old_bufs = s:thwins_bufs
+    if cnr != a:old_bufs[0]
         let s:thwins_bufs = [cnr]
-        let tmp = old_bufs[0]
+        let tmp = a:old_bufs[0]
         for idx in range(1, 2)
-            if old_bufs[idx] == cnr
+            if a:old_bufs[idx] == cnr
                 let s:thwins_bufs += [tmp]
             else
-                let s:thwins_bufs += [old_bufs[idx]]
+                let s:thwins_bufs += [a:old_bufs[idx]]
             endif
         endfor
     endif
@@ -76,10 +75,6 @@ endfunction
 "" Priorities are: Current > Main > Displayed > New opened > Others
 function! THWINS_SyncBufs()
     let old_bufs = s:thwins_bufs
-    echo ''
-    echo 'old_bufs:'
-    echo old_bufs
-    echo ''
 
     " Add current buffer
     let cnr = bufnr('%')
@@ -90,18 +85,11 @@ function! THWINS_SyncBufs()
     endif
     let s:thwins_bufs = [cnr]
     let bufs_displayed = THWINS_GetDisplayedBuffers()
-    echo 'after adding current buffer'
-    echo s:thwins_bufs
 
     " Add last main buffer if it exists
     if index(bufs_displayed, last_main_nr) != -1 && index(s:thwins_bufs, last_main_nr) == -1
         let s:thwins_bufs += [last_main_nr]
     endif
-    echo 'dis:'
-    echo bufs_displayed
-    echo 'after adding main buffer'
-    echo s:thwins_bufs
-    echo ''
 
     " Add other displayed buffers
     let idx = 0
@@ -112,15 +100,8 @@ function! THWINS_SyncBufs()
         endif
         let idx += 1
     endwhile
-    echo 'after adding displayed buffers'
-    echo s:thwins_bufs
-    echo ''
 
     let bufs_listed = THWINS_GetListedBufs()
-    echo ''
-    echo 'listed:'
-    echo bufs_listed
-    echo ''
     let idx = 0
     while len(s:thwins_bufs) < 3 && len(bufs_listed) > idx
         let inr = bufs_listed[idx]
@@ -129,17 +110,10 @@ function! THWINS_SyncBufs()
         endif
         let idx += 1
     endwhile
-    echo 'after adding listed buffers'
-    echo s:thwins_bufs
 
     if sort(copy(old_bufs)) == sort(copy(s:thwins_bufs))
-        echo 'changing main win()'
-        call THWINS_ChangeMainWindow()
+        call THWINS_ChangeMainWindow(old_bufs)
     endif
-
-    echo 'final bufs:'
-    echo s:thwins_bufs
-    echo ''
 endfunction
 
 
@@ -217,9 +191,9 @@ if !exists('g:thwins_map_keys')
 endif
 
 if g:thwins_map_keys
-    map <C-C> :call THWINS_CloseOthers()<CR>
-    map <C-D> :call THWINS_Delete()<CR>
     map <C-H> :call THWINS_Focus()<CR>
+    map <C-C> :call THWINS_Delete()<CR>
+    map <C-D> :call THWINS_CloseOthers()<CR>
     map <C-J> <C-W>w
     map <C-K> <C-W>W
     map <C-L> :call THWINS_Full()<CR>
