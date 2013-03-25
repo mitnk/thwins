@@ -42,7 +42,7 @@ function! THWINS_ChangeMainWindow(old_bufs)
     if len(a:old_bufs) <= 2
         return
     endif
-    let cnr = bufnr('%')
+    let cnr = s:thwins_bufs[0]
     if cnr != a:old_bufs[0]
         let s:thwins_bufs = [cnr]
         let tmp = a:old_bufs[0]
