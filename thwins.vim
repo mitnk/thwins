@@ -155,8 +155,14 @@ endfunction
 
 
 function! THWINS_ResizeMasterPaneWidth()
-    " resize the master pane if user defined it
-    if exists('g:thwins_master_pane_width')
+    if (&columns < 120)
+        let g:thwins_master_pane_width=&columns * 3 / 5
+    elseif (&columns < 170)
+        let g:thwins_master_pane_width=85
+    else
+        let g:thwins_master_pane_width=0
+    endif
+    if g:thwins_master_pane_width
         exec 'vertical resize ' . g:thwins_master_pane_width
     endif
 endfunction

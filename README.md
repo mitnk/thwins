@@ -31,12 +31,6 @@ Key Mapping
 - `<C-J>` Move cursor to next buffer
 - `<C-K>` Move cursor to previous buffer
 
-Optional Settings
------------------
-
-- `g:thwins_map_keys`: if set to a falsey value, prevents key mapping.
-- `g:thwins_master_pane_width`: set the width of the master pane (e.g. `g:thwins_master_pane_width=85`)
-
 Inspired By
 -------------
 
