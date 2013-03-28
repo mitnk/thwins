@@ -162,7 +162,9 @@ function! THWINS_ResizeMasterPaneWidth()
     else
         let thwins_master_pane_width=0
     endif
-    exec 'vertical resize ' . thwins_master_pane_width
+    if thwins_master_pane_width
+        exec 'vertical resize ' . thwins_master_pane_width
+    endif
 endfunction
 
 
