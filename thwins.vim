@@ -156,15 +156,13 @@ endfunction
 
 function! THWINS_ResizeMasterPaneWidth()
     if (&columns < 120)
-        let g:thwins_master_pane_width=&columns * 3 / 5
+        let thwins_master_pane_width=&columns * 3 / 5
     elseif (&columns < 170)
-        let g:thwins_master_pane_width=85
+        let thwins_master_pane_width=85
     else
-        let g:thwins_master_pane_width=0
+        let thwins_master_pane_width=0
     endif
-    if g:thwins_master_pane_width
-        exec 'vertical resize ' . g:thwins_master_pane_width
-    endif
+    exec 'vertical resize ' . thwins_master_pane_width
 endfunction
 
 
@@ -174,8 +172,13 @@ function! THWINS_Full ()
 endfunction
 
 
-function! THWINS_Delete()
-    let is_main = (bufnr('%') == s:thwins_bufs[0])
+function! THWINS_CloseCurrent()
+    if len(s:thwins_bufs) == 0
+        let is_main = 0
+    else
+        let is_main = (bufnr('%') == s:thwins_bufs[0])
+    endif
+
     exec 'bd'
     if is_main
         exec 'wincmd k'
@@ -201,16 +204,9 @@ function! THWINS_Focus()
 endfunction
 
 
-if !exists('g:thwins_map_keys')
-    let g:thwins_map_keys = 1
-endif
-
-if g:thwins_map_keys
-    map <C-H> :call THWINS_Focus()<CR>
-    map <C-C> :call THWINS_Delete()<CR>
-    map <C-D> :call THWINS_CloseOthers()<CR>
-    map <C-J> <C-W>w
-    map <C-K> <C-W>W
-    map <C-L> :call THWINS_Full()<CR>
-endif
-
+map <C-H> :call THWINS_Focus()<CR>
+map <C-C> :call THWINS_CloseCurrent()<CR>
+map <C-D> :call THWINS_CloseOthers()<CR>
+map <C-J> <C-W>w
+map <C-K> <C-W>W
+map <C-L> :call THWINS_Full()<CR>
