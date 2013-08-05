@@ -200,9 +200,23 @@ function! THWINS_CloseOthers()
 endfunction
 
 
+" Walk through all the three windows (after a rearrangement),
+" in order to make sure the main window got a BufEnter event and
+" the other two window got BufLeave events
+function! THWINS_WalkThrough()
+    " from main window to the right-bottom one
+    exec 'wincmd l'
+    " from right-bottom one to right-up one
+    exec 'wincmd k'
+    " back to the main window
+    exec 'wincmd h'
+endfunction
+
+
 function! THWINS_Focus()
     call THWINS_SyncBufs()
     call THWINS_Layout()
+    call THWINS_WalkThrough()
 endfunction
 
 
