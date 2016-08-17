@@ -18,7 +18,7 @@ if exists("g:thwins_version") || &cp
     finish
 endif
 
-let g:thwins_version = "0.1.0"
+let g:thwins_version = "0.1.1"
 
 " Check for Vim version 700 or greater
 if v:version < 700
@@ -169,7 +169,6 @@ endfunction
 
 
 function! THWINS_Full ()
-    exec 'sb ' .    bufnr('%')
     on!
 endfunction
 
