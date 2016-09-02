@@ -30,6 +30,7 @@ Key Mapping
 - `<C-D>` Close all buffers except the current one
 - `<C-J>` Move cursor to next buffer
 - `<C-K>` Move cursor to previous buffer
+- `<C-M>` Set max window number between 3 and 2
 
 Inspired By
 -------------
