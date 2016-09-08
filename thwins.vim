@@ -10,7 +10,6 @@
 " Name Of File: thwins.vim
 "  Description: Three Windows for Vim
 "   Maintainer: mitnk (w AT mitnk DOT com)
-"      Base On: dwm.vim by Stanislas Polu (https://github.com/spolu/dwm.vim)
 "=============================================================================
 
 " Exit quickly if already running
@@ -18,7 +17,7 @@ if exists("g:thwins_version") || &cp
     finish
 endif
 
-let g:thwins_version = "0.2.0"
+let g:thwins_version = "0.2.1"
 
 " Check for Vim version 700 or greater
 if v:version < 700
@@ -229,10 +228,12 @@ endfunction
 function! THWINS_ChangeMaxWindowNumber()
     if g:thwins_max_window_number >= 3
         let g:thwins_max_window_number = 2
+        echo "Changed max windows to 2"
         return
     endif
     if g:thwins_max_window_number <= 2
         let g:thwins_max_window_number = 3
+        echo "Changed max windows to 3"
         return
     endif
 endfunction
